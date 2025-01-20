@@ -19,7 +19,7 @@ env:
 on:
   workflow_dispatch:
   schedule:
-  - cron: 50 8 * * *
+  - cron: 0 1 * * *
 
 jobs:
   check:
@@ -46,7 +46,7 @@ jobs:
         echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 
     - name: Trigger build
-      if: steps.cacheHash.outputs.cache-hit != 'true'
+      if: steps.cacheHash.outputs.cache-hit != 'false'
       uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.ACTIONS_TRIGGER }}
